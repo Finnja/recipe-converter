@@ -109,7 +109,9 @@ if __name__ == '__main__':
 	test = recipe('http://allrecipes.com/recipe/47397/cashew-avocado-chicken-salad')
 	test.scrape()
 	test.parseIngredients()
-	for ing in test.ingredients:
-		x = json.dumps(ing.__dict__)
-		print x
+	# for ing in test.ingredients:
+	# 	x = json.dumps(ing.__dict__)
+	# 	print x
+
+	x = json.dumps(test.__dict__)
 			
