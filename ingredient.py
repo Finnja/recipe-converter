@@ -1,5 +1,4 @@
 import re
-from scraper import *
 
 class ingredient(object):
 	"""docstring for ingredient"""

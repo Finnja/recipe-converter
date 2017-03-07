@@ -3,6 +3,7 @@ import re
 import json
 import requests as r
 from bs4 import BeautifulSoup
+from fractions import Fraction
 
 
 
@@ -40,7 +41,7 @@ class recipe(object):
 
 		preparations = ['sliced', 'chopped', 'crushed', 'grated', 'toasted', 'peeled',
 						'deveined', 'juiced', 'minced', 'diced', 'drained', 'beaten',
-						'melted', 'divided', 'shredded', 'cored', 'halved', 'quartered']
+						'melted', 'divided', 'shredded', 'cored', 'halved', 'quartered', 'cooked']
 
 		ingredients_parsed = []
 
@@ -48,7 +49,7 @@ class recipe(object):
 			measurement = []
 			descriptor = []
 			preparation = []
-			quantity = None
+			quantity = []
 
 			i = re.sub("[\(\[].*?[\)\]]", "", i)
 
@@ -62,7 +63,7 @@ class recipe(object):
 				
 				# add multi-word fraction support
 				if hasNumbers(word):
-					quantity = word
+					quantity.append(word)
 					to_remove.append(word)
 
 				if word in measurements:
@@ -84,9 +85,14 @@ class recipe(object):
 			i = ' '.join(i)
 
 			# 'to taste' special case
-			if (quantity is None) and ('to taste' in i):
+			if (len(quantity) == 0) and ('to taste' in i):
 				i = i.replace('to taste', '')
-				quantity = 'to taste'
+				quantity.append('to taste')
+			elif len(quantity) > 1:
+				quantity = float(sum(Fraction(s) for s in quantity))
+			else:
+				quantity = float(Fraction(quantity[0]))
+
 
 			if ',' in i:
 				i = i.split(',')[0]
@@ -100,7 +106,7 @@ class recipe(object):
 		self.ingredients = ingredients_parsed
 
 if __name__ == '__main__':
-	test = recipe('http://allrecipes.com/recipe/176132/slow-cooker-buffalo-chicken-sandwiches/')
+	test = recipe('http://allrecipes.com/recipe/47397/cashew-avocado-chicken-salad')
 	test.scrape()
 	test.parseIngredients()
 	for ing in test.ingredients:
