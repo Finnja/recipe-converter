@@ -1,8 +1,62 @@
 
-ing_list = ['beef', 'salt', 'pepper', 'oil', 'jalapeno']
-h = {'salt':'garlic powder'}
-v = {'chicken':'seitan'}
-gf = {'bread crumbs':'ground flaxseeds'}
+#ing_list = ['beef', 'salt', 'pepper', 'oil', 'jalapeno']
+h = {'salt':'garlic powder',
+     'bacon':'turkey bacon',
+     'bread':'whole-grain bread',
+     'bread crumbs':'rolled oats',
+     'butter':'applesauce',
+     'margarine':'applesauce',
+     'cream':'fat-free half-and-half',
+     'eggs':'egg whites',
+     'flour':'whole-wheat flour',
+     'ground beef':'lean ground beef',
+     'lettuce':'kale',
+     'mayonnaise':'reduce-calorie dressing',
+     'milk':'skim milk',
+     'pasta':'whole-wheat pasta',
+     'white rice':'brown rice',
+     'sour cream':'fat-free sour cream or yogurt',
+     'sugar':'vanilla extract',
+     'syrup':'sugar-free syrup',
+     'yogurt':'low-fat yogurt'
+     }
+v = {'chicken':'seitan',
+     'beef':'tofu',
+     'steak':'tofu',
+     'pork':'tofu',
+     'turkey':'tofu',
+     'shrimp':'tofu',
+     'salmon':'tempeh',
+     'tilapia':'tempeh',
+     'bass':'tempeh',
+     'swordfish':'tempeh',
+     'cod':'tempeh',
+     'tuna':'tempeh',
+     'catfish':'tempeh',
+     'crab':'tofu',
+     'lobster':'tofu',
+     'clam':'tofu',
+     'pollack':'tempeh',
+     'lamb':'mushroom'
+     }
+gf = {'bread':'corn tortilla',
+      'bread crumbs':'ground flaxseeds',
+      'cracker':'brown rice tortilla',
+      'pizza crust':'mashed potatoes',
+      'flour tortilla':'corn tortilla',
+      'oatmeal':'grits',
+      'pancake':'cornmeal pancake',
+      'granola':'chopped nuts',
+      'frosting':'meringue',
+      'croutons':'nuts',
+      'flour':'black bean puree',
+      'wheat flour':'almond flour',
+      'noodle':'eggplant',
+      'pasta':'rice noodles',
+      'couscous':'quinoa',
+      'soy sauce':'tamari',
+      'roux':'potatoes'
+      }
 asian = {'wine':'rice wine',
     'cooking oil':'sesame oil', 
     'oil':'sesame oil', 
@@ -202,50 +256,62 @@ def recipe_transform(ingredients):
     if transformation == 'h':
         count = 0
         for i in ingredients:
-            new_ing = h.get(i,i)
-            ingredients[count] = new_ing
+            for key in h.keys():
+                if key in i.lower():
+                    new_ing = h.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     elif transformation == 'v':
         count = 0
         for i in ingredients:
-            new_ing = v.get(i,i)
-            ingredients[count] = new_ing
+            for key in v.keys():
+                if key in i.lower():
+                    new_ing = v.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     elif transformation == 'gf':
         count = 0
         for i in ingredients:
-            new_ing = gf.get(i,i)
-            ingredients[count] = new_ing
+            for key in gf.keys():
+                if key in i.lower():
+                    new_ing = gf.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     elif transformation == 'asian':
         count = 0
         for i in ingredients:
-            new_ing = asian.get(i,i)
-            ingredients[count] = new_ing
+            for key in asian.keys():
+                if key in i.lower():
+                    new_ing = asian.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     elif transformation == 'italian':
         count = 0
         for i in ingredients:
-            new_ing = italian.get(i,i)
-            ingredients[count] = new_ing
+            for key in italian.keys():
+                if key in i.lower():
+                    new_ing = italian.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     elif transformation == 'indian':
         count = 0
         for i in ingredients:
-            new_ing = indian.get(i,i)
-            ingredients[count] = new_ing
+            for key in indian.keys():
+                if key in i.lower():
+                    new_ing = indian.get(key)
+                    ingredients[count] = new_ing
             count += 1
-        print ingredients
+        #print ingredients
     else:
         print('Please enter a valid transformation type')
-        recipe_transform(ing_list)
+        recipe_transform(ingredients)
 
-recipe_transform(ing_list)
+#recipe_transform(ing_list)
     
 
 
