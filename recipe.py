@@ -106,6 +106,27 @@ class recipe(object):
 
                 self.ingredients = ingredients_parsed
 
+        def findTools(self):
+		"""finds tools used in a recipe from list of instructions """
+			if not (hasattr(self, 'directions_raw')):
+				print('no directions, must run scrape first')
+			else:
+				print(self.directions_raw)
+
+				self.tools = []
+
+				tools_master_list = ['baking pan', 'pan', 'baking dish', 'bowl', 'whisk', 'skillet', 'collander', 
+						'grater', 'mortar and pestle', 'peeler', 'potatoe masher', 'tongs', 'spoon',
+						'saucepan']
+
+				directions_corpus = ' '.join(self.directions_raw)
+
+				for tool in tools_master_list:
+					if tool in directions_corpus:
+						self.tools.append(tool)
+
+				print(self.tools)
+
         def rec_transform(self):
                 ing_list = []
                 for i in self.ingredients:
@@ -117,6 +138,8 @@ class recipe(object):
                         i.name = ing_list[count]
                         #print i.name
                         count += 1
+
+
 
 if __name__ == '__main__':
         test = recipe('http://allrecipes.com/recipe/47397/cashew-avocado-chicken-salad')
