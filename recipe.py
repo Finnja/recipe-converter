@@ -3,6 +3,7 @@ from transformation import recipe_transform
 import re
 import json
 import requests as r
+import itertools
 from bs4 import BeautifulSoup
 from fractions import Fraction
 
@@ -13,6 +14,7 @@ class recipe(object):
         def __init__(self, url):
                 super(recipe, self).__init__()
                 self.url = url
+        
         
         def scrape(self):
                 html = r.get(self.url).text
@@ -27,6 +29,8 @@ class recipe(object):
                 directions_raw = directions_raw[:-1]
                 directions_raw = [step.getText() for step in directions_raw]
                 self.directions_raw = directions_raw
+                #print self.directions_raw
+                
 
         def parseIngredients(self):
                 measurements = ['tablespoon', 'tablespoons', 'teaspoon', 'teaspoons', 'cup', 'cups', 'ounce',
@@ -130,14 +134,30 @@ class recipe(object):
         def rec_transform(self):
                 ing_list = []
                 for i in self.ingredients:
-                        #print i.name
+                        print i.name
                         ing_list.append(i.name)
-                recipe_transform(ing_list)
+                print '\n'
+                print self.directions_raw
+                print '\n'
+                transformation = raw_input('Choose a transformation (h = healthy, v = vegetarian, gf = gluten free, asian = Asian, italian = Italian, indian = Indian): ')
+                recipe_transform(ing_list, transformation)
                 count = 0
+                print '\n'
                 for i in self.ingredients:
                         i.name = ing_list[count]
-                        #print i.name
+                        print i.name
                         count += 1
+                directions_list_raw = []
+                directions_list = []
+                for direc in self.directions_raw:
+                        directions_list_raw.append(direc.split())
+                        directions_list = list(itertools.chain.from_iterable(directions_list_raw))
+                recipe_transform(directions_list, transformation)
+                #print directions_list
+                directions_transformed = ' '.join(directions_list)
+                #self.directions = directions_transformed
+                print '\n'
+                print directions_transformed
 
 
 
@@ -150,5 +170,5 @@ if __name__ == '__main__':
         #       x = json.dumps(ing.__dict__)
         #       print x
 
-        x = json.dumps(test.__dict__)
+        #x = json.dumps(test.__dict__)
                         

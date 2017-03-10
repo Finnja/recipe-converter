@@ -37,7 +37,8 @@ v = {'chicken':'seitan',
      'lobster':'tofu',
      'clam':'tofu',
      'pollack':'tempeh',
-     'lamb':'mushroom'
+     'lamb':'mushroom',
+     'bacon':'tempeh bacon'
      }
 gf = {'bread':'corn tortilla',
       'bread crumbs':'ground flaxseeds',
@@ -250,8 +251,8 @@ indian = {
 
 
 
-def recipe_transform(ingredients):
-    transformation = raw_input('Choose a transformation (h = healthy, v = vegetarian, gf = gluten free, asian = Asian, italian = Italian, indian = Indian): ')
+def recipe_transform(ingredients, transformation):
+    #transformation = raw_input('Choose a transformation (h = healthy, v = vegetarian, gf = gluten free, asian = Asian, italian = Italian, indian = Indian): ')
 
     if transformation == 'h':
         count = 0
