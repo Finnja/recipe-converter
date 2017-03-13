@@ -14,6 +14,10 @@ class recipe(object):
     def __init__(self, url):
         super(recipe, self).__init__()
         self.url = url
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: o.__dict__, 
+            sort_keys=True, indent=4)
     
     
     def scrape(self):
@@ -110,9 +114,9 @@ class recipe(object):
 
         self.ingredients = ingredients_parsed
 
-        for ing in self.ingredients:
-          x = json.dumps(ing.__dict__)
-          print x
+        # for ing in self.ingredients:
+        #   x = json.dumps(ing.__dict__)
+        #   print x
 
     def findTools(self):
         """finds tools used in a recipe from list of instructions """
@@ -134,8 +138,7 @@ class recipe(object):
                     self.tools.append(tool)
 
             tools_list = ', '.join(self.tools)
-            print 'Tools Needed: ' + tools_list + '\n'
-            #print(self.tools)
+            # print 'Tools Needed: ' + tools_list + '\n'
 
     def cookingMethod(self):
         """finds major cooking method from scaped instructions """
@@ -154,7 +157,7 @@ class recipe(object):
                     self.methods.append(method)
 
             methods_list = ', '.join(self.methods)
-            print 'Cooking method: ' + methods_list + '\n'
+            # print 'Cooking method: ' + methods_list + '\n'
 
     def rec_transform(self):
         ing_list = []
@@ -208,6 +211,9 @@ if __name__ == '__main__':
     test.parseIngredients()
     test.findTools()
     test.cookingMethod()
+
+    print(test.toJSON())
+
     test.rec_transform()
 
             
